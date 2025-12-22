@@ -1,249 +1,277 @@
 <div class="dashboard-container">
   <!-- Page Header -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <h1 class="h3 mb-3">Dashboard</h1>
-      <p class="text-muted">Welcome back! Here's what's happening today.</p>
-    </div>
-  </div>
-
-  <!-- Stats Cards -->
-  <div class="row mb-4">
-    <div class="col-xl-3 col-md-6 mb-3">
-      <div class="card border-start border-primary border-4 shadow-sm h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="text-muted small mb-1">Total Users</div>
-              <div class="h5 mb-0 fw-bold">1,245</div>
-            </div>
-            <div class="text-primary" style="font-size: 2rem;">
-              <i class="bi bi-people"></i>
-            </div>
-          </div>
-          <div class="mt-2">
-            <span class="badge bg-success-subtle text-success">
-              <i class="bi bi-arrow-up"></i> 12%
-            </span>
-            <span class="text-muted small ms-1">vs last month</span>
-          </div>
-        </div>
+  <div class="page-header">
+    <div class="header-content">
+      <div>
+        <h1 class="dashboard-title">Dashboard Overview</h1>
+        <p class="dashboard-subtitle">Welcome back! Here's what's happening today.</p>
       </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6 mb-3">
-      <div class="card border-start border-success border-4 shadow-sm h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="text-muted small mb-1">Revenue</div>
-              <div class="h5 mb-0 fw-bold">$45,230</div>
-            </div>
-            <div class="text-success" style="font-size: 2rem;">
-              <i class="bi bi-currency-dollar"></i>
-            </div>
-          </div>
-          <div class="mt-2">
-            <span class="badge bg-success-subtle text-success">
-              <i class="bi bi-arrow-up"></i> 8%
-            </span>
-            <span class="text-muted small ms-1">vs last month</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6 mb-3">
-      <div class="card border-start border-info border-4 shadow-sm h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="text-muted small mb-1">Orders</div>
-              <div class="h5 mb-0 fw-bold">523</div>
-            </div>
-            <div class="text-info" style="font-size: 2rem;">
-              <i class="bi bi-cart"></i>
-            </div>
-          </div>
-          <div class="mt-2">
-            <span class="badge bg-success-subtle text-success">
-              <i class="bi bi-arrow-up"></i> 5%
-            </span>
-            <span class="text-muted small ms-1">vs last month</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6 mb-3">
-      <div class="card border-start border-warning border-4 shadow-sm h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="text-muted small mb-1">Pending</div>
-              <div class="h5 mb-0 fw-bold">18</div>
-            </div>
-            <div class="text-warning" style="font-size: 2rem;">
-              <i class="bi bi-clock-history"></i>
-            </div>
-          </div>
-          <div class="mt-2">
-            <span class="badge bg-danger-subtle text-danger">
-              <i class="bi bi-arrow-down"></i> 3%
-            </span>
-            <span class="text-muted small ms-1">vs last month</span>
-          </div>
-        </div>
+      <div class="header-actions">
+        <button class="btn btn-outline-primary me-2">
+          <i class="bi bi-download me-2"></i>Export
+        </button>
+        <button class="btn btn-primary">
+          <i class="bi bi-plus-circle me-2"></i>New Report
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Charts and Tables Row -->
-  <div class="row mb-4">
+  <!-- Stats Grid -->
+  <mat-grid-list cols="4" rowHeight="140px" gutterSize="16px" class="stats-grid">
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-icon">
+            <mat-icon>people</mat-icon>
+          </div>
+          <div class="stat-details">
+            <h3>Total Users</h3>
+            <p class="stat-number">12,543</p>
+            <mat-chip class="trend-chip positive">
+              <mat-icon>trending_up</mat-icon>
+              +12.5%
+            </mat-chip>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-icon revenue">
+            <mat-icon>attach_money</mat-icon>
+          </div>
+          <div class="stat-details">
+            <h3>Revenue</h3>
+            <p class="stat-number">$54,230</p>
+            <mat-chip class="trend-chip positive">
+              <mat-icon>trending_up</mat-icon>
+              +8.2%
+            </mat-chip>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-icon orders">
+            <mat-icon>shopping_cart</mat-icon>
+          </div>
+          <div class="stat-details">
+            <h3>Orders</h3>
+            <p class="stat-number">1,423</p>
+            <mat-chip class="trend-chip positive">
+              <mat-icon>trending_up</mat-icon>
+              +5.7%
+            </mat-chip>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-icon pending">
+            <mat-icon>pending_actions</mat-icon>
+          </div>
+          <div class="stat-details">
+            <h3>Pending</h3>
+            <p class="stat-number">43</p>
+            <mat-chip class="trend-chip negative">
+              <mat-icon>trending_down</mat-icon>
+              -2.3%
+            </mat-chip>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- Content Grid -->
+  <div class="content-grid">
     <!-- Recent Activity -->
-    <div class="col-lg-6 mb-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-header bg-white">
-          <h5 class="card-title mb-0">Recent Activity</h5>
-        </div>
-        <div class="card-body">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item px-0 border-0">
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
-                  <div class="bg-primary-subtle text-primary rounded-circle p-2">
-                    <i class="bi bi-person-plus"></i>
-                  </div>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <div class="fw-semibold">New user registered</div>
-                  <div class="text-muted small">John Doe joined the platform</div>
-                </div>
-                <div class="text-muted small">2m ago</div>
-              </div>
-            </div>
-            <div class="list-group-item px-0 border-0">
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
-                  <div class="bg-success-subtle text-success rounded-circle p-2">
-                    <i class="bi bi-cart-check"></i>
-                  </div>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <div class="fw-semibold">New order placed</div>
-                  <div class="text-muted small">Order #12345 - $250.00</div>
-                </div>
-                <div class="text-muted small">15m ago</div>
-              </div>
-            </div>
-            <div class="list-group-item px-0 border-0">
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
-                  <div class="bg-warning-subtle text-warning rounded-circle p-2">
-                    <i class="bi bi-exclamation-triangle"></i>
-                  </div>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <div class="fw-semibold">Low stock alert</div>
-                  <div class="text-muted small">Product ABC running low</div>
-                </div>
-                <div class="text-muted small">1h ago</div>
-              </div>
-            </div>
-            <div class="list-group-item px-0 border-0">
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
-                  <div class="bg-info-subtle text-info rounded-circle p-2">
-                    <i class="bi bi-credit-card"></i>
-                  </div>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <div class="fw-semibold">Payment received</div>
-                  <div class="text-muted small">Invoice #567 paid</div>
-                </div>
-                <div class="text-muted small">3h ago</div>
-              </div>
-            </div>
+    <mat-card class="activity-card">
+      <mat-card-header>
+        <mat-card-title>
+          <i class="bi bi-activity me-2"></i>
+          Recent Activity
+        </mat-card-title>
+        <button class="btn btn-sm btn-text">View All</button>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="activity-item">
+          <div class="activity-icon-wrapper new-user">
+            <mat-icon class="activity-icon">person_add</mat-icon>
+          </div>
+          <div class="activity-content">
+            <p class="activity-text">
+              <strong>John Doe</strong> registered as new user
+            </p>
+            <p class="activity-time">
+              <i class="bi bi-clock me-1"></i>2 minutes ago
+            </p>
           </div>
         </div>
-      </div>
-    </div>
+        <mat-divider></mat-divider>
 
-    <!-- Top Products -->
-    <div class="col-lg-6 mb-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-header bg-white">
-          <h5 class="card-title mb-0">Top Products</h5>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-hover mb-0">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Sales</th>
-                  <th>Revenue</th>
-                  <th>Trend</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="fw-semibold">Product A</div>
-                    <div class="text-muted small">Category 1</div>
-                  </td>
-                  <td>456</td>
-                  <td>$12,340</td>
-                  <td>
-                    <span class="badge bg-success">
-                      <i class="bi bi-arrow-up"></i> 12%
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="fw-semibold">Product B</div>
-                    <div class="text-muted small">Category 2</div>
-                  </td>
-                  <td>389</td>
-                  <td>$9,870</td>
-                  <td>
-                    <span class="badge bg-success">
-                      <i class="bi bi-arrow-up"></i> 8%
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="fw-semibold">Product C</div>
-                    <div class="text-muted small">Category 1</div>
-                  </td>
-                  <td>312</td>
-                  <td>$7,650</td>
-                  <td>
-                    <span class="badge bg-danger">
-                      <i class="bi bi-arrow-down"></i> 3%
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="fw-semibold">Product D</div>
-                    <div class="text-muted small">Category 3</div>
-                  </td>
-                  <td>267</td>
-                  <td>$5,340</td>
-                  <td>
-                    <span class="badge bg-success">
-                      <i class="bi bi-arrow-up"></i> 15%
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="activity-item">
+          <div class="activity-icon-wrapper order">
+            <mat-icon class="activity-icon">shopping_bag</mat-icon>
+          </div>
+          <div class="activity-content">
+            <p class="activity-text">
+              Order <strong>#1234</strong> has been completed
+            </p>
+            <p class="activity-time">
+              <i class="bi bi-clock me-1"></i>15 minutes ago
+            </p>
           </div>
         </div>
-      </div>
-    </div>
+        <mat-divider></mat-divider>
+
+        <div class="activity-item">
+          <div class="activity-icon-wrapper payment">
+            <mat-icon class="activity-icon">payment</mat-icon>
+          </div>
+          <div class="activity-content">
+            <p class="activity-text">
+              Payment of <strong>$240.00</strong> received
+            </p>
+            <p class="activity-time">
+              <i class="bi bi-clock me-1"></i>1 hour ago
+            </p>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="activity-item">
+          <div class="activity-icon-wrapper review">
+            <mat-icon class="activity-icon">rate_review</mat-icon>
+          </div>
+          <div class="activity-content">
+            <p class="activity-text">
+              <strong>Sarah Miller</strong> posted a new review
+            </p>
+            <p class="activity-time">
+              <i class="bi bi-clock me-1"></i>3 hours ago
+            </p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Sales Chart Card -->
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>
+          <i class="bi bi-graph-up me-2"></i>
+          Sales Overview
+        </mat-card-title>
+        <div class="chart-actions">
+          <button class="btn btn-sm btn-text active">Week</button>
+          <button class="btn btn-sm btn-text">Month</button>
+          <button class="btn btn-sm btn-text">Year</button>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-placeholder">
+          <div class="chart-info">
+            <div class="chart-stat">
+              <h3>$42,580</h3>
+              <p class="text-success">
+                <i class="bi bi-arrow-up"></i>
+                +15.3% vs last week
+              </p>
+            </div>
+            <div class="chart-visual">
+              <i class="bi bi-bar-chart-line display-1 text-muted"></i>
+              <p class="text-muted mt-2">Chart visualization placeholder</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
+
+  <!-- Top Products Table -->
+  <mat-card class="products-card">
+    <mat-card-header>
+      <mat-card-title>
+        <i class="bi bi-star me-2"></i>
+        Top Selling Products
+      </mat-card-title>
+      <div class="table-actions">
+        <button class="btn btn-sm btn-text me-2">
+          <i class="bi bi-funnel"></i>
+        </button>
+        <button class="btn btn-sm btn-text">
+          <i class="bi bi-three-dots-vertical"></i>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="topProducts" class="products-table">
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef>Product</th>
+          <td mat-cell *matCellDef="let product">
+            <div class="product-info">
+              <div class="product-image">
+                <i class="bi bi-box"></i>
+              </div>
+              <div>
+                <strong>{{product.name}}</strong>
+                <span class="product-category">{{product.category}}</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sales">
+          <th mat-header-cell *matHeaderCellDef>Sales</th>
+          <td mat-cell *matCellDef="let product">
+            <strong>{{product.sales}}</strong> units
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="revenue">
+          <th mat-header-cell *matHeaderCellDef>Revenue</th>
+          <td mat-cell *matCellDef="let product">
+            <strong>{{product.revenue}}</strong>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="trend">
+          <th mat-header-cell *matHeaderCellDef>Trend</th>
+          <td mat-cell *matCellDef="let product">
+            <div class="trend-container">
+              <mat-chip [class.positive]="product.trend > 0" [class.negative]="product.trend < 0">
+                <mat-icon>{{product.trend > 0 ? 'trending_up' : 'trending_down'}}</mat-icon>
+                {{product.trend > 0 ? '+' : ''}}{{product.trend}}%
+              </mat-chip>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let product">
+            <button class="btn btn-sm btn-text">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-text">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
 </div>

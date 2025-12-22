@@ -1,78 +1,142 @@
 <div class="admin-layout">
   <!-- Top Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
-    <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="#">
-        <i class="bi bi-speedometer2 me-2"></i>
-        Nexus Admin
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top shadow">
+    <div class="container-fluid px-4">
+      <button class="btn btn-link text-white me-3 sidebar-toggle" (click)="toggleSidebar()">
+        <i class="bi bi-list fs-4"></i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-bell"></i>
-              <span class="badge bg-danger ms-1">3</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-person-circle"></i> Admin
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <div class="brand-icon">
+          <i class="bi bi-hexagon-fill"></i>
+        </div>
+        <span class="ms-2">Nexus Admin</span>
+      </a>
+
+      <!-- Search Bar -->
+      <form class="d-none d-md-flex mx-auto search-form">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0">
+            <i class="bi bi-search text-muted"></i>
+          </span>
+          <input type="search" class="form-control border-start-0" placeholder="Search...">
+        </div>
+      </form>
+
+      <div class="d-flex align-items-center ms-auto">
+        
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown">
+          <button class="btn btn-link text-white dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+            <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" class="rounded-circle me-2" width="35" height="35" alt="Admin">
+            <span class="d-none d-lg-block">Admin User</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li class="dropdown-header">
+              <strong>Admin User</strong>
+              <br>
+              <small class="text-muted">admin@nexus.com</small>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>My Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>Help Center</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
 
-  <div class="d-flex">
+  <div class="d-flex layout-wrapper">
     <!-- Sidebar -->
-    <div class="sidebar bg-dark text-white p-3">
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <a class="nav-link text-white active" href="#">
-            <i class="bi bi-house-door me-2"></i>
-            Dashboard
-          </a>
-        </li>
-        <li class="nav-item mb-2">
-          <a class="nav-link text-white" href="#">
-            <i class="bi bi-people me-2"></i>
-            Users
-          </a>
-        </li>
-        <li class="nav-item mb-2">
-          <a class="nav-link text-white" href="#">
-            <i class="bi bi-box-seam me-2"></i>
-            Products
-          </a>
-        </li>
-        <li class="nav-item mb-2">
-          <a class="nav-link text-white" href="#">
-            <i class="bi bi-graph-up me-2"></i>
-            Analytics
-          </a>
-        </li>
-        <li class="nav-item mb-2">
-          <a class="nav-link text-white" href="#">
-            <i class="bi bi-gear me-2"></i>
-            Settings
-          </a>
-        </li>
-      </ul>
-    </div>
+    <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+      <div class="sidebar-content">
+        <!-- User Info Card -->
+        <div class="user-card">
+          <div class="user-avatar">
+            <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" class="rounded-circle" width="50" height="50" alt="Admin">
+          </div>
+          <div class="user-info" *ngIf="!sidebarCollapsed">
+            <h6 class="mb-0">Admin User</h6>
+            <small class="text-muted">Administrator</small>
+          </div>
+        </div>
+
+        <hr class="sidebar-divider">
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">MAIN MENU</h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/admin" title="Dashboard">
+                  <i class="bi bi-speedometer2"></i>
+                  <span *ngIf="!sidebarCollapsed">Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" title="Analytics">
+                  <i class="bi bi-graph-up"></i>
+                  <span *ngIf="!sidebarCollapsed">Home</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://shiraa.app/" target="_blank" title="Help">
+                  <i class="bi bi-question-circle"></i>
+                  <span *ngIf="!sidebarCollapsed">Help</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+          <div class="nav-section">
+            <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">SUPPLIER</h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="#" title="Profile">
+                  <i class="bi bi-person-badge"></i>
+                  <span *ngIf="!sidebarCollapsed">Profile</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" title="REQs">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <span *ngIf="!sidebarCollapsed">REQs</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" title="Offers">
+                  <i class="bi bi-tag"></i>
+                  <span *ngIf="!sidebarCollapsed">Offers</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+        </nav>
+      </div>
+
+    
+    </aside>
 
     <!-- Main Content Area -->
-    <div class="main-content flex-grow-1 p-4 bg-light">
-      <router-outlet></router-outlet>
-    </div>
+    <main class="main-content">
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+
+      <!-- Footer -->
+      <footer class="content-footer">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-muted small">© {{date.getFullYear()}} Nexus Admin. All rights reserved.</span>
+     
+        </div>
+      </footer>
+    </main>
   </div>
 </div>

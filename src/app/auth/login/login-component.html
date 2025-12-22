@@ -1,67 +1,90 @@
-<div class="login-container">
-  <h2 class="text-center mb-4">Login</h2>
-  <p class="text-center text-muted mb-4">Sign in to your account</p>
-
-  <form>
-    <!-- Email Input -->
-    <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        placeholder="Enter your email"
-        required
-      >
-    </div>
-
-    <!-- Password Input -->
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        placeholder="Enter your password"
-        required
-      >
-    </div>
-
-    <!-- Remember Me & Forgot Password -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="remember">
-        <label class="form-check-label" for="remember">
-          Remember me
-        </label>
+<div class="login-wrapper">
+  <div class="login-content">
+    <!-- Header Section -->
+    <div class="login-header">
+      <div class="logo-container">
+        <div class="logo-circle">
+          <mat-icon>lock</mat-icon>
+        </div>
       </div>
-      <a href="#" class="text-decoration-none text-primary">Forgot password?</a>
+      <h1 class="welcome-title">Welcome Back</h1>
+      <p class="welcome-subtitle">Sign in to continue to Nexus Admin</p>
     </div>
 
-    <!-- Login Button -->
-    <button type="submit" class="btn btn-primary w-100 mb-3">
-      Login
-    </button>
+    <!-- Form Section -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+          />
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="loginForm.get('email')?.invalid">
+            {{ getEmailErrorMessage() }}
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <!-- Register Link -->
-    <div class="text-center">
-      <span class="text-muted">Don't have an account? </span>
-      <a routerLink="/register" class="text-decoration-none text-primary fw-bold">Register</a>
-    </div>
-  </form>
+      <!-- Password Field -->
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+          />
+          <mat-icon matPrefix>lock</mat-icon>
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Toggle password visibility'"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.invalid">
+            {{ getPasswordErrorMessage() }}
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-  <!-- Divider -->
-  <div class="divider my-4">
-    <span class="divider-text">OR</span>
-  </div>
+      <!-- Remember Me & Forgot Password -->
+      <!-- <div class="form-actions">
+        <mat-checkbox formControlName="rememberMe" color="primary" class="remember-checkbox">
+          Remember me
+        </mat-checkbox>
+        <a href="#" class="forgot-link">Forgot Password?</a>
+      </div> -->
 
-  <!-- Social Login Buttons -->
-  <div class="d-grid gap-2">
-    <button type="button" class="btn btn-outline-secondary">
-      <i class="bi bi-google me-2"></i>Continue with Google
-    </button>
-    <button type="button" class="btn btn-outline-secondary">
-      <i class="bi bi-github me-2"></i>Continue with GitHub
-    </button>
+      <!-- Login Button -->
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="login-button"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">Sign In</span>
+        <mat-spinner *ngIf="isLoading" diameter="24" class="spinner"></mat-spinner>
+      </button>
+
+      <!-- Register Link -->
+      <div class="register-section">
+        <p>
+          Don't have an account?
+          <a routerLink="/register" class="register-link">Create Account</a>
+        </p>
+      </div>
+    </form>
   </div>
 </div>

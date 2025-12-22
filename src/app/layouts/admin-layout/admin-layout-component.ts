@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout',
@@ -8,5 +7,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './admin-layout-component.scss',
 })
 export class AdminLayoutComponent {
+  sidebarCollapsed = false;
 
+  date = new Date();
+  constructor() {
+    console.log('AdminLayoutComponent initialized');
+  }
+
+  toggleSidebar() {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
+  }
 }
