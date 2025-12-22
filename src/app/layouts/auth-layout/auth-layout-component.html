@@ -1,0 +1,31 @@
+<div class="auth-layout">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <!-- Left Side - Branding/Image -->
+      <div class="col-lg-6 d-none d-lg-flex auth-branding">
+        <div class="d-flex flex-column justify-content-center align-items-center w-100 text-white p-5">
+          <h1 class="display-3 fw-bold mb-4">Welcome to Nexus</h1>
+          <p class="lead text-center">Your comprehensive admin dashboard solution</p>
+          <div class="mt-5">
+            <i class="bi bi-shield-check" style="font-size: 5rem;"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Auth Forms -->
+      <div class="col-lg-6 d-flex align-items-center justify-content-center bg-light">
+        <div class="auth-form-container w-100" style="max-width: 450px;">
+          <div class="p-4">
+            <!-- Logo/Brand for mobile -->
+            <div class="text-center mb-4 d-lg-none">
+              <h2 class="fw-bold text-primary">Nexus</h2>
+            </div>
+
+            <!-- Router Outlet for Login/Register Components -->
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

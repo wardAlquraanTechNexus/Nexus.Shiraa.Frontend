@@ -1,0 +1,40 @@
+.login-container {
+  .divider {
+    position: relative;
+    text-align: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #dee2e6;
+    }
+
+    .divider-text {
+      position: relative;
+      background-color: #f8f9fa;
+      padding: 0 1rem;
+      color: #6c757d;
+      font-size: 0.875rem;
+    }
+  }
+
+  .btn-primary {
+    padding: 0.75rem;
+    font-weight: 500;
+  }
+
+  .btn-outline-secondary {
+    padding: 0.75rem;
+    font-weight: 500;
+
+    &:hover {
+      background-color: #f8f9fa;
+      border-color: #dee2e6;
+      color: #212529;
+    }
+  }
+}
