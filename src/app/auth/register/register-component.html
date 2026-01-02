@@ -15,38 +15,21 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
       <!-- Full Name Field -->
       <div class="form-group">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Full Name</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="fullName"
-            placeholder="Enter your full name"
-            autocomplete="name"
-          />
-          <mat-icon matPrefix>person</mat-icon>
-          <mat-error *ngIf="registerForm.get('fullName')?.invalid">
-            {{ getFullNameErrorMessage() }}
-          </mat-error>
-        </mat-form-field>
+        <app-text-input
+          label="Full Name"
+          placeholder="Enter your full name"
+          icon="person"
+          [formGroup]="registerForm"
+          controlName="fullName"
+        ></app-text-input>
       </div>
 
       <!-- Email Field -->
       <div class="form-group">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email Address</mat-label>
-          <input
-            matInput
-            type="email"
-            formControlName="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-          />
-          <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="registerForm.get('email')?.invalid">
-            {{ getEmailErrorMessage() }}
-          </mat-error>
-        </mat-form-field>
+        <app-email-input
+          [formGroup]="registerForm"
+          controlName="email"
+        ></app-email-input>
       </div>
 
       <!-- Password Field -->
@@ -56,8 +39,8 @@
           <input
             matInput
             [type]="hidePassword ? 'password' : 'text'"
-            formControlName="password"
             placeholder="Create a password"
+            formControlName="password"
             autocomplete="new-password"
           />
           <mat-icon matPrefix>lock</mat-icon>
@@ -66,14 +49,12 @@
             matSuffix
             type="button"
             (click)="hidePassword = !hidePassword"
-            [attr.aria-label]="'Toggle password visibility'"
           >
             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-          <mat-error *ngIf="registerForm.get('password')?.invalid">
-            {{ getPasswordErrorMessage() }}
-          </mat-error>
           <mat-hint>Must be at least 8 characters</mat-hint>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</mat-error>
         </mat-form-field>
       </div>
 
@@ -84,23 +65,21 @@
           <input
             matInput
             [type]="hideConfirmPassword ? 'password' : 'text'"
-            formControlName="confirmPassword"
             placeholder="Confirm your password"
+            formControlName="confirmPassword"
             autocomplete="new-password"
           />
-          <mat-icon matPrefix>lock_outline</mat-icon>
+          <mat-icon matPrefix>lock</mat-icon>
           <button
             mat-icon-button
             matSuffix
             type="button"
             (click)="hideConfirmPassword = !hideConfirmPassword"
-            [attr.aria-label]="'Toggle password visibility'"
           >
             <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-          <mat-error *ngIf="registerForm.get('confirmPassword')?.invalid || registerForm.hasError('passwordMismatch')">
-            {{ getConfirmPasswordErrorMessage() }}
-          </mat-error>
+          <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">Please confirm your password</mat-error>
+          <mat-error *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">Passwords do not match</mat-error>
         </mat-form-field>
       </div>
 
@@ -118,18 +97,11 @@
       </div>
 
       <!-- Register Button -->
-      <button
-        mat-raised-button
-        color="primary"
+      <app-button
+        label="Create Account"
         type="submit"
-        class="register-button"
-        [disabled]="isLoading"
-      >
-        <span *ngIf="!isLoading">Create Account</span>
-        <mat-spinner *ngIf="isLoading" diameter="24" class="spinner"></mat-spinner>
-      </button>
-
-     
+        [loading]="isLoading"
+      ></app-button>
 
       <!-- Login Link -->
       <div class="login-section">

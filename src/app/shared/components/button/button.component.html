@@ -1,0 +1,66 @@
+<ng-container [ngSwitch]="variant">
+  <!-- Raised Button -->
+  <button
+    *ngSwitchCase="'raised'"
+    mat-raised-button
+    [color]="color"
+    [type]="type"
+    [disabled]="isDisabled"
+    [class.full-width]="fullWidth"
+    class="app-button"
+    (click)="onClick()"
+  >
+    <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+  </button>
+
+  <!-- Flat Button -->
+  <button
+    *ngSwitchCase="'flat'"
+    mat-flat-button
+    [color]="color"
+    [type]="type"
+    [disabled]="isDisabled"
+    [class.full-width]="fullWidth"
+    class="app-button"
+    (click)="onClick()"
+  >
+    <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+  </button>
+
+  <!-- Stroked Button -->
+  <button
+    *ngSwitchCase="'stroked'"
+    mat-stroked-button
+    [color]="color"
+    [type]="type"
+    [disabled]="isDisabled"
+    [class.full-width]="fullWidth"
+    class="app-button"
+    (click)="onClick()"
+  >
+    <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+  </button>
+
+  <!-- Basic Button -->
+  <button
+    *ngSwitchCase="'basic'"
+    mat-button
+    [color]="color"
+    [type]="type"
+    [disabled]="isDisabled"
+    [class.full-width]="fullWidth"
+    class="app-button"
+    (click)="onClick()"
+  >
+    <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+  </button>
+</ng-container>
+
+<!-- Button Content Template -->
+<ng-template #buttonContent>
+  <div class="button-content">
+    <mat-spinner *ngIf="loading" diameter="20" class="spinner"></mat-spinner>
+    <mat-icon *ngIf="icon && !loading">{{ icon }}</mat-icon>
+    <span *ngIf="!loading" class="button-label">{{ label }}</span>
+  </div>
+</ng-template>

@@ -1,0 +1,35 @@
+.app-button {
+  height: 48px;
+  border-radius: 10px !important;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.5px;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  .button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .spinner {
+    ::ng-deep circle {
+      stroke: currentColor;
+    }
+  }
+
+  .button-label {
+    line-height: 1;
+  }
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}

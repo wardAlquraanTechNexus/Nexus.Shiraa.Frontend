@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EmailValidators } from '../../shared/validators/email.validator';
 
 @Component({
   selector: 'app-login',
@@ -20,32 +21,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
       rememberMe: [false]
     });
-  }
-
-  getEmailErrorMessage(): string {
-    const emailControl = this.loginForm.get('email');
-    if (emailControl?.hasError('required')) {
-      return 'Email is required';
-    }
-    if (emailControl?.hasError('email')) {
-      return 'Please enter a valid email address';
-    }
-    return '';
-  }
-
-  getPasswordErrorMessage(): string {
-    const passwordControl = this.loginForm.get('password');
-    if (passwordControl?.hasError('required')) {
-      return 'Password is required';
-    }
-    if (passwordControl?.hasError('minlength')) {
-      return 'Password must be at least 6 characters';
-    }
-    return '';
   }
 
   onSubmit(): void {

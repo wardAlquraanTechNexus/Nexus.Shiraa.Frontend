@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthRoutingModule } from './auth-routing-module';
 import { LoginComponent } from './login/login-component';
 import { RegisterComponent } from './register/register-component';
+import { SharedModule } from '../shared/shared-module';
 
 
 @NgModule({
@@ -26,17 +27,9 @@ import { RegisterComponent } from './register/register-component';
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule,
     AuthRoutingModule,
-    // Material Modules
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatDividerModule,
-    MatCardModule,
-    MatProgressSpinnerModule
+    SharedModule
+   
   ]
 })
 export class AuthModule { }

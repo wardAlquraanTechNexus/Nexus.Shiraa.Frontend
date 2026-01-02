@@ -1,6 +1,5 @@
 <div class="login-wrapper">
   <div class="login-content">
-    <!-- Header Section -->
     <div class="login-header">
       <div class="logo-container">
         <div class="logo-circle">
@@ -11,27 +10,14 @@
       <p class="welcome-subtitle">Sign in to continue to Nexus Admin</p>
     </div>
 
-    <!-- Form Section -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-      <!-- Email Field -->
       <div class="form-group">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email Address</mat-label>
-          <input
-            matInput
-            type="email"
-            formControlName="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-          />
-          <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="loginForm.get('email')?.invalid">
-            {{ getEmailErrorMessage() }}
-          </mat-error>
-        </mat-form-field>
+        <app-email-input
+          [formGroup]="loginForm"
+          controlName="email"
+        ></app-email-input>
       </div>
 
-      <!-- Password Field -->
       <div class="form-group">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
@@ -48,41 +34,31 @@
             matSuffix
             type="button"
             (click)="hidePassword = !hidePassword"
-            [attr.aria-label]="'Toggle password visibility'"
           >
             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-          <mat-error *ngIf="loginForm.get('password')?.invalid">
-            {{ getPasswordErrorMessage() }}
-          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
         </mat-form-field>
       </div>
 
-      <!-- Remember Me & Forgot Password -->
-      <!-- <div class="form-actions">
+      <div class="form-actions">
         <mat-checkbox formControlName="rememberMe" color="primary" class="remember-checkbox">
           Remember me
         </mat-checkbox>
         <a href="#" class="forgot-link">Forgot Password?</a>
-      </div> -->
+      </div>
 
-      <!-- Login Button -->
-      <button
-        mat-raised-button
-        color="primary"
+      <app-button
+        label="Sign In"
         type="submit"
-        class="login-button"
-        [disabled]="isLoading"
-      >
-        <span *ngIf="!isLoading">Sign In</span>
-        <mat-spinner *ngIf="isLoading" diameter="24" class="spinner"></mat-spinner>
-      </button>
+        [loading]="isLoading"
+      ></app-button>
 
-      <!-- Register Link -->
       <div class="register-section">
         <p>
           Don't have an account?
-          <a routerLink="/register" class="register-link">Create Account</a>
+          <a routerLink="register" class="register-link">Create Account</a>
         </p>
       </div>
     </form>

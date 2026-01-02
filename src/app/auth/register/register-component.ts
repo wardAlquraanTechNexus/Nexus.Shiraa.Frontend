@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EmailValidators } from '../../shared/validators/email.validator';
 
 @Component({
   selector: 'app-register',
@@ -21,10 +22,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
+      fullName: [null, [Validators.required, Validators.minLength(3)]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      confirmPassword: [null, [Validators.required]],
       terms: [false, [Validators.requiredTrue]]
     }, { validators: this.passwordMatchValidator });
   }
@@ -38,50 +39,6 @@ export class RegisterComponent implements OnInit {
     }
 
     return password.value === confirmPassword.value ? null : { passwordMismatch: true };
-  }
-
-  getFullNameErrorMessage(): string {
-    const fullNameControl = this.registerForm.get('fullName');
-    if (fullNameControl?.hasError('required')) {
-      return 'Full name is required';
-    }
-    if (fullNameControl?.hasError('minlength')) {
-      return 'Full name must be at least 3 characters';
-    }
-    return '';
-  }
-
-  getEmailErrorMessage(): string {
-    const emailControl = this.registerForm.get('email');
-    if (emailControl?.hasError('required')) {
-      return 'Email is required';
-    }
-    if (emailControl?.hasError('email')) {
-      return 'Please enter a valid email address';
-    }
-    return '';
-  }
-
-  getPasswordErrorMessage(): string {
-    const passwordControl = this.registerForm.get('password');
-    if (passwordControl?.hasError('required')) {
-      return 'Password is required';
-    }
-    if (passwordControl?.hasError('minlength')) {
-      return 'Password must be at least 8 characters';
-    }
-    return '';
-  }
-
-  getConfirmPasswordErrorMessage(): string {
-    const confirmPasswordControl = this.registerForm.get('confirmPassword');
-    if (confirmPasswordControl?.hasError('required')) {
-      return 'Please confirm your password';
-    }
-    if (this.registerForm.hasError('passwordMismatch') && confirmPasswordControl?.touched) {
-      return 'Passwords do not match';
-    }
-    return '';
   }
 
   onSubmit(): void {

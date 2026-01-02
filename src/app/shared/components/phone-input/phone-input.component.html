@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    type="tel"
+    [placeholder]="placeholder"
+    [value]="value"
+    [disabled]="disabled"
+    [required]="isRequired"
+    [errorStateMatcher]="errorStateMatcher"
+    autocomplete="tel"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  />
+  <mat-icon matPrefix>phone</mat-icon>
+  <mat-error *ngIf="control?.hasError('required')">Phone number is required</mat-error>
+  <mat-error *ngIf="control?.hasError('invalidPhone')">Please enter a valid phone number</mat-error>
+  <mat-error *ngIf="control?.hasError('pattern')">Please enter a valid phone number</mat-error>
+</mat-form-field>

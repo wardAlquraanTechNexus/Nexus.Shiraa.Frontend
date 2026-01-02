@@ -10,9 +10,26 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+// Input Components
+import { EmailInputComponent } from './components/email-input/email-input.component';
+import { PhoneInputComponent } from './components/phone-input/phone-input.component';
+import { TextInputComponent } from './components/text-input/text-input.component';
+import { NumberInputComponent } from './components/number-input/number-input.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    EmailInputComponent,
+    PhoneInputComponent,
+    TextInputComponent,
+    NumberInputComponent,
+    ButtonComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -25,7 +42,11 @@ import { MatTableModule } from '@angular/material/table';
     MatChipsModule,
     MatProgressBarModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     CommonModule,
@@ -39,7 +60,17 @@ import { MatTableModule } from '@angular/material/table';
     MatChipsModule,
     MatProgressBarModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    // Components
+    EmailInputComponent,
+    PhoneInputComponent,
+    TextInputComponent,
+    NumberInputComponent,
+    ButtonComponent
   ]
 })
 export class SharedModule { }

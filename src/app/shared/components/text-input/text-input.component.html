@@ -1,0 +1,16 @@
+<mat-form-field [formGroup]="formGroup" appearance="outline" class="full-width">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    type="text"
+    [placeholder]="placeholder"
+    [formControlName]="controlName"
+    [required]="isRequired"
+    [autocomplete]="autocomplete"
+  />
+  <mat-icon *ngIf="icon" matPrefix>{{ icon }}</mat-icon>
+  <mat-error *ngIf="control?.hasError('required')">This field is required</mat-error>
+  <mat-error *ngIf="control?.hasError('minlength')">Text is too short</mat-error>
+  <mat-error *ngIf="control?.hasError('maxlength')">Text is too long</mat-error>
+  <mat-error *ngIf="control?.hasError('pattern')">Invalid format</mat-error>
+</mat-form-field>
