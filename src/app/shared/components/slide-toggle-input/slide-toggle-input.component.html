@@ -1,0 +1,17 @@
+<div class="slide-toggle-wrapper" [class.card-style]="showCard" [formGroup]="formGroup">
+  <div class="toggle-content">
+    <div class="toggle-info">
+      <mat-icon [class.active]="isActive">
+        {{ isActive ? activeIcon : inactiveIcon }}
+      </mat-icon>
+      <div class="toggle-text">
+        <span class="toggle-label">{{ label }}</span>
+        <span class="toggle-value" [class.active]="isActive">
+          {{ isActive ? activeText : inactiveText }}
+        </span>
+      </div>
+    </div>
+    <mat-slide-toggle [formControlName]="controlName" color="primary"></mat-slide-toggle>
+  </div>
+  <p class="toggle-description" *ngIf="description">{{ description }}</p>
+</div>

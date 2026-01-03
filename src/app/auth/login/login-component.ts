@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EmailValidators } from '../../shared/validators/email.validator';
+import { AuthService } from '../services/auth.service';
+import { AuthRequest } from '../models/auth.models';
+import { SnackbarService } from '../../shared/services/snackbar.service';
+import { StorageService } from '../../core/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +19,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private snackbar: SnackbarService,
+    private cdr: ChangeDetectorRef,
+    private storage: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -30,29 +37,39 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;
-      console.log('Login form submitted:', this.loginForm.value);
 
-      // Simulate API call
-      setTimeout(() => {
-        this.isLoading = false;
-        // Navigate to admin dashboard on success
-        this.router.navigate(['/admin']);
-      }, 1500);
+      const request: AuthRequest = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+
+      this.authService.login(request).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+
+          // Store auth data
+          this.storage.setToken(response.token);
+          this.storage.setUser({
+            id: response.id,
+            userName: response.userName,
+            email: response.email,
+            firstName: response.firstName,
+            lastName: response.lastName
+          });
+
+          this.snackbar.success('Login successful!');
+          this.router.navigate(['/admin']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        }
+      });
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
       });
     }
-  }
-
-  onGoogleLogin(): void {
-    console.log('Google login clicked');
-    // Implement Google OAuth login
-  }
-
-  onGithubLogin(): void {
-    console.log('GitHub login clicked');
-    // Implement GitHub OAuth login
   }
 }

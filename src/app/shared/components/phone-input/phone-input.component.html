@@ -1,19 +1,17 @@
-<mat-form-field appearance="outline" class="full-width">
+<mat-form-field [formGroup]="formGroup" appearance="outline" class="full-width">
   <mat-label>{{ label }}</mat-label>
   <input
     matInput
     type="tel"
     [placeholder]="placeholder"
-    [value]="value"
-    [disabled]="disabled"
+    [formControlName]="controlName"
     [required]="isRequired"
-    [errorStateMatcher]="errorStateMatcher"
+    maxlength="15"
     autocomplete="tel"
-    (input)="onInput($event)"
-    (blur)="onBlur()"
   />
   <mat-icon matPrefix>phone</mat-icon>
   <mat-error *ngIf="control?.hasError('required')">Phone number is required</mat-error>
   <mat-error *ngIf="control?.hasError('invalidPhone')">Please enter a valid phone number</mat-error>
-  <mat-error *ngIf="control?.hasError('pattern')">Please enter a valid phone number</mat-error>
+  <mat-error *ngIf="control?.hasError('phoneTooShort')">Phone number is too short</mat-error>
+  <mat-error *ngIf="control?.hasError('phoneTooLong')">Phone number is too long</mat-error>
 </mat-form-field>

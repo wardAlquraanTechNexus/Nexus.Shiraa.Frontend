@@ -1,0 +1,35 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1 class="profile-title">{{ 'sidebar.profile' | translate }}</h1>
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-card">
+      <div class="profile-avatar">
+        <img src="https://ui-avatars.com/api/?name={{userInitials}}&background=0d47a1&color=fff&size=120"
+             class="rounded-circle"
+             [alt]="userFullName">
+      </div>
+
+      <div class="profile-info">
+        <h2 class="user-name">{{ userFullName }}</h2>
+        <p class="user-email">{{ user?.email }}</p>
+      </div>
+
+      <div class="profile-details">
+        <div class="detail-item">
+          <label>{{ 'auth.fullName' | translate }}</label>
+          <span>{{ userFullName }}</span>
+        </div>
+        <div class="detail-item">
+          <label>{{ 'auth.email' | translate }}</label>
+          <span>{{ user?.email }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Username</label>
+          <span>{{ user?.userName }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EmailValidators } from '../../shared/validators/email.validator';
+import { PhoneValidators } from '../../shared/validators/phone.validator';
+import { AuthService } from '../services/auth.service';
+import { RegistrationRequest } from '../models/auth.models';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-register',
@@ -17,16 +20,20 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private snackbar: SnackbarService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      fullName: [null, [Validators.required, Validators.minLength(3)]],
+      firstName: [null, [Validators.required, Validators.minLength(2)]],
+      lastName: [null],
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(8)]],
+      phoneNumber: [null, [PhoneValidators.validPhone()]],
+      password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(25)]],
       confirmPassword: [null, [Validators.required]],
-      terms: [false, [Validators.requiredTrue]]
     }, { validators: this.passwordMatchValidator });
   }
 
@@ -44,29 +51,33 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.isLoading = true;
-      console.log('Register form submitted:', this.registerForm.value);
 
-      // Simulate API call
-      setTimeout(() => {
-        this.isLoading = false;
-        // Navigate to admin dashboard on success
-        this.router.navigate(['/admin']);
-      }, 1500);
+      const email = this.registerForm.value.email;
+      const request: RegistrationRequest = {
+        firstName: this.registerForm.value.firstName,
+        lastName: this.registerForm.value.lastName,
+        email: email,
+        userName: email,
+        phoneNumber: this.registerForm.value.phoneNumber,
+        password: this.registerForm.value.password
+      };
+
+      this.authService.register(request).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+          this.snackbar.success('Registration successful! Please sign in.');
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        }
+      });
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.registerForm.controls).forEach(key => {
         this.registerForm.get(key)?.markAsTouched();
       });
     }
-  }
-
-  onGoogleRegister(): void {
-    console.log('Google register clicked');
-    // Implement Google OAuth registration
-  }
-
-  onGithubRegister(): void {
-    console.log('GitHub register clicked');
-    // Implement GitHub OAuth registration
   }
 }

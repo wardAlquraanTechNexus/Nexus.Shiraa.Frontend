@@ -3,24 +3,24 @@
   .page-header {
     margin-bottom: 2rem;
 
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
     .dashboard-title {
-      font-size: 1.75rem;
-      font-weight: 700;
+      font-size: 1.25rem;
+      font-weight: 500;
       color: #2d3748;
-      margin: 0;
+      margin: 0 0 1.5rem 0;
+      text-align: left;
     }
 
-    .dashboard-subtitle {
-      color: #718096;
-      margin: 0.25rem 0 0;
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .client-logo {
+      width: 350px;
+      height: 250px;
+      object-fit: contain;
     }
 
     .header-actions {

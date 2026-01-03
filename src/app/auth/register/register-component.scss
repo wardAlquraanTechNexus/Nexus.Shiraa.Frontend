@@ -18,25 +18,11 @@
 
     .logo-container {
       margin-bottom: 1.5rem;
+      text-align: center;
 
-      .logo-circle {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        animation: pulse 2s ease-in-out infinite;
-
-        mat-icon {
-          font-size: 40px;
-          width: 40px;
-          height: 40px;
-          color: white;
-        }
+      .logo-image {
+        max-width: 250px;
+        height: auto;
       }
     }
 
@@ -54,6 +40,18 @@
       margin: 0;
       font-weight: 400;
     }
+  }
+
+  // Error Message
+  .error-message {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
   }
 
   // Form Section
@@ -139,6 +137,12 @@
         font-size: 0.8rem;
         color: #dc3545;
       }
+    }
+
+    app-button {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
     }
 
     .register-button {
@@ -284,15 +288,8 @@
       .register-header {
         margin-bottom: 2rem;
 
-        .logo-container .logo-circle {
-          width: 70px;
-          height: 70px;
-
-          mat-icon {
-            font-size: 35px;
-            width: 35px;
-            height: 35px;
-          }
+        .logo-container .logo-image {
+          max-width: 200px;
         }
 
         .welcome-title {

@@ -6,43 +6,49 @@
         <i class="bi bi-list fs-4"></i>
       </button>
       <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-        <div class="brand-icon">
-          <i class="bi bi-hexagon-fill"></i>
-        </div>
-        <span class="ms-2">Nexus Admin</span>
+        <img src="shiraalogo.png" alt="Shiraa Logo" class="navbar-logo"> 
+        <span class="m-2 ms-2 text-white small fw-normal">{{ 'navbar.title' | translate }}</span>
       </a>
 
-      <!-- Search Bar -->
-      <form class="d-none d-md-flex mx-auto search-form">
-        <div class="input-group">
-          <span class="input-group-text bg-transparent border-end-0">
-            <i class="bi bi-search text-muted"></i>
-          </span>
-          <input type="search" class="form-control border-start-0" placeholder="Search...">
-        </div>
-      </form>
+     
 
       <div class="d-flex align-items-center ms-auto">
-        
+
 
         <!-- User Profile Dropdown -->
         <div class="dropdown">
           <button class="btn btn-link text-white dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
-            <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" class="rounded-circle me-2" width="35" height="35" alt="Admin">
-            <span class="d-none d-lg-block">Admin User</span>
+            <img src="https://ui-avatars.com/api/?name={{userInitials}}&background=0d47a1&color=fff" class="rounded-circle me-2" width="35" height="35" [alt]="userFullName">
+            <span class="d-none d-lg-block">{{ userFullName }}</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end shadow">
             <li class="dropdown-header">
-              <strong>Admin User</strong>
+              <strong>{{ userFullName }}</strong>
               <br>
-              <small class="text-muted">admin@nexus.com</small>
+              <small class="text-muted">{{ user?.email }}</small>
             </li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>My Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>Help Center</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/profile"><i class="bi bi-person me-2"></i>{{ 'navbar.myProfile' | translate }}</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>{{ 'navbar.settings' | translate }}</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>{{ 'navbar.helpCenter' | translate }}</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            <li class="dropdown-header">
+              <small class="text-muted">Language</small>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="javascript:void(0)" (click)="setLanguage('en')" [class.active]="currentLanguage === 'en'">
+                 English
+                <i class="bi bi-check ms-auto" *ngIf="currentLanguage === 'en'"></i>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="javascript:void(0)" (click)="setLanguage('ar')" [class.active]="currentLanguage === 'ar'">
+                 العربية
+                <i class="bi bi-check ms-auto" *ngIf="currentLanguage === 'ar'"></i>
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i>{{ 'navbar.logout' | translate }}</a></li>
           </ul>
         </div>
       </div>
@@ -56,11 +62,11 @@
         <!-- User Info Card -->
         <div class="user-card">
           <div class="user-avatar">
-            <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" class="rounded-circle" width="50" height="50" alt="Admin">
+            <img src="https://ui-avatars.com/api/?name={{userInitials}}&background=0d47a1&color=fff" class="rounded-circle" width="50" height="50" [alt]="userFullName">
           </div>
           <div class="user-info" *ngIf="!sidebarCollapsed">
-            <h6 class="mb-0">Admin User</h6>
-            <small class="text-muted">Administrator</small>
+            <h6 class="mb-0">{{ userFullName }}</h6>
+            <small class="text-muted">{{ user?.email }}</small>
           </div>
         </div>
 
@@ -69,24 +75,24 @@
         <!-- Navigation Menu -->
         <nav class="sidebar-nav">
           <div class="nav-section">
-            <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">MAIN MENU</h6>
+            <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">{{ 'sidebar.mainMenu' | translate }}</h6>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/admin" title="Dashboard">
+                <a class="nav-link" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [title]="'sidebar.dashboard' | translate">
                   <i class="bi bi-speedometer2"></i>
-                  <span *ngIf="!sidebarCollapsed">Dashboard</span>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.dashboard' | translate }}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" title="Analytics">
+                <a class="nav-link" href="#" [title]="'sidebar.home' | translate">
                   <i class="bi bi-graph-up"></i>
-                  <span *ngIf="!sidebarCollapsed">Home</span>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.home' | translate }}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://shiraa.app/" target="_blank" title="Help">
+                <a class="nav-link" href="https://shiraa.app/" target="_blank" [title]="'sidebar.help' | translate">
                   <i class="bi bi-question-circle"></i>
-                  <span *ngIf="!sidebarCollapsed">Help</span>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.help' | translate }}</span>
                 </a>
               </li>
 
@@ -94,24 +100,36 @@
           </div>
 
           <div class="nav-section">
-            <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">SUPPLIER</h6>
+            <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">{{ 'sidebar.management' | translate }}</h6>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="#" title="Profile">
+                <a class="nav-link" routerLink="/admin/categories" routerLinkActive="active" [title]="'sidebar.categories' | translate">
+                  <i class="bi bi-grid"></i>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.categories' | translate }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="nav-section">
+            <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">{{ 'sidebar.supplier' | translate }}</h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/profile" routerLinkActive="active" [title]="'sidebar.profile' | translate">
                   <i class="bi bi-person-badge"></i>
-                  <span *ngIf="!sidebarCollapsed">Profile</span>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.profile' | translate }}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" title="REQs">
+                <a class="nav-link" href="#" [title]="'sidebar.reqs' | translate">
                   <i class="bi bi-file-earmark-text"></i>
-                  <span *ngIf="!sidebarCollapsed">REQs</span>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.reqs' | translate }}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" title="Offers">
+                <a class="nav-link" href="#" [title]="'sidebar.offers' | translate">
                   <i class="bi bi-tag"></i>
-                  <span *ngIf="!sidebarCollapsed">Offers</span>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.offers' | translate }}</span>
                 </a>
               </li>
             </ul>
@@ -121,7 +139,7 @@
         </nav>
       </div>
 
-    
+
     </aside>
 
     <!-- Main Content Area -->
@@ -133,8 +151,8 @@
       <!-- Footer -->
       <footer class="content-footer">
         <div class="d-flex justify-content-between align-items-center">
-          <span class="text-muted small">© {{date.getFullYear()}} Nexus Admin. All rights reserved.</span>
-     
+          <span class="text-muted small">{{ 'footer.copyright' | translate: { year: date.getFullYear() } }}</span>
+
         </div>
       </footer>
     </main>

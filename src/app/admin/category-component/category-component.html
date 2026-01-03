@@ -1,0 +1,23 @@
+<div class="category-container">
+  <!-- Header -->
+  <div class="category-header">
+    <h2>Categories</h2>
+    <button mat-raised-button color="primary" (click)="openFormDialog()">
+      <mat-icon>add</mat-icon>
+      Add Category
+    </button>
+  </div>
+
+  <!-- Data Table -->
+  <app-data-table
+    [data]="categories"
+    [columns]="tableColumns"
+    [isLoading]="isLoading"
+    [pagination]="pagination"
+    [showActions]="true"
+    noDataMessage="No categories found"
+    (edit)="editCategory($event)"
+    (delete)="deleteCategory($event)"
+    (pageChange)="onPageChange($event)">
+  </app-data-table>
+</div>
