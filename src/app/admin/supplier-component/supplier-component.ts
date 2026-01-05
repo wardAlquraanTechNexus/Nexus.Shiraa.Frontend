@@ -2,22 +2,22 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection as MatSortDirection } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryService } from '../services/category.service';
-import { Category, CreateCategoryRequest, UpdateCategoryRequest } from '../models/category.models';
+import { SupplierService } from '../services/supplier.service';
+import { Supplier } from '../models/supplier.models';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { TableColumn, PaginationInfo } from '../../shared/components/data-table/data-table.component';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../shared/components/confirm-dialog/confirm-dialog.component';
-import { CategoryFormDialogComponent, CategoryFormDialogData } from './category-form-dialog.component/category-form-dialog.component';
+import { SupplierFormDialogComponent, SupplierFormDialogData } from './supplier-form-dialog.component/supplier-form-dialog.component';
 import { SortDirection } from '../../core/models/pagination.models';
 
 @Component({
-  selector: 'app-category',
+  selector: 'app-supplier',
   standalone: false,
-  templateUrl: './category-component.html',
-  styleUrl: './category-component.scss',
+  templateUrl: './supplier-component.html',
+  styleUrl: './supplier-component.scss',
 })
-export class CategoryComponent implements OnInit {
-  categories: Category[] = [];
+export class SupplierComponent implements OnInit {
+  suppliers: Supplier[] = [];
   isLoading = false;
   searchPhrase = '';
   sortBy?: string;
@@ -28,6 +28,8 @@ export class CategoryComponent implements OnInit {
   tableColumns: TableColumn[] = [
     { key: 'number', header: 'Number', sortable: true },
     { key: 'name', header: 'Name', sortable: true },
+    { key: 'taxRegistrationNum', header: 'Tax Reg. No.', sortable: true },
+    { key: 'commercialLicenseNum', header: 'Commercial License', sortable: true },
     { key: 'isActive', header: 'Status', type: 'status', sortable: true }
   ];
 
@@ -42,19 +44,19 @@ export class CategoryComponent implements OnInit {
   };
 
   constructor(
-    private categoryService: CategoryService,
+    private supplierService: SupplierService,
     private snackbar: SnackbarService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.loadCategories();
+    this.loadSuppliers();
   }
 
-  loadCategories(): void {
+  loadSuppliers(): void {
     this.isLoading = true;
-    this.categoryService.getPaged({
+    this.supplierService.getPaged({
       PageNumber: this.pagination.currentPage,
       PageSize: this.pagination.pageSize,
       SearchPhrase: this.searchPhrase || undefined,
@@ -62,7 +64,7 @@ export class CategoryComponent implements OnInit {
       SortDirection: this.sortDirection
     }).subscribe({
       next: (response) => {
-        this.categories = response.categories;
+        this.suppliers = response.suppliers;
         this.pagination = {
           currentPage: response.currentPage,
           totalCount: response.totalCount,
@@ -84,66 +86,34 @@ export class CategoryComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.pagination.currentPage = event.pageIndex;
     this.pagination.pageSize = event.pageSize;
-    this.loadCategories();
+    this.loadSuppliers();
   }
 
-  openFormDialog(category?: Category): void {
-    const dialogData: CategoryFormDialogData = {
-      category: category
+  openFormDialog(supplier?: Supplier): void {
+    const dialogData: SupplierFormDialogData = {
+      supplier: supplier
     };
 
-    this.dialog.open(CategoryFormDialogComponent, {
+    this.dialog.open(SupplierFormDialogComponent, {
       width: '800px',
       maxWidth: '90vw',
       disableClose: true,
       data: dialogData
     }).afterClosed().subscribe(result => {
-      if (result) {
-        if (category) {
-          this.updateCategory(result);
-        } else {
-          this.createCategory(result);
-        }
+      if (result === 'created' || result === 'updated') {
+        this.loadSuppliers();
       }
     });
   }
 
-  private createCategory(data: CreateCategoryRequest): void {
-    this.isLoading = true;
-    this.categoryService.create(data).subscribe({
-      next: () => {
-        this.snackbar.success('Category created successfully');
-        this.loadCategories();
-      },
-      error: () => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      }
-    });
+  editSupplier(supplier: Supplier): void {
+    this.openFormDialog(supplier);
   }
 
-  private updateCategory(data: UpdateCategoryRequest): void {
-    this.isLoading = true;
-    this.categoryService.update(data.id, data).subscribe({
-      next: () => {
-        this.snackbar.success('Category updated successfully');
-        this.loadCategories();
-      },
-      error: () => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      }
-    });
-  }
-
-  editCategory(category: Category): void {
-    this.openFormDialog(category);
-  }
-
-  deleteCategory(category: Category): void {
+  deleteSupplier(supplier: Supplier): void {
     const dialogData: ConfirmDialogData = {
-      title: 'Delete Category',
-      message: `Are you sure you want to delete "${category.name}"? This action cannot be undone.`,
+      title: 'Delete Supplier',
+      message: `Are you sure you want to delete "${supplier.name}"? This action cannot be undone.`,
       confirmText: 'Delete',
       cancelText: 'Cancel',
       type: 'danger'
@@ -155,10 +125,40 @@ export class CategoryComponent implements OnInit {
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
         this.isLoading = true;
-        this.categoryService.delete(category.id).subscribe({
+        this.supplierService.delete(supplier.id).subscribe({
           next: () => {
-            this.snackbar.success('Category deleted successfully');
-            this.loadCategories();
+            this.snackbar.success('Supplier deleted successfully');
+            this.loadSuppliers();
+          },
+          error: () => {
+            this.isLoading = false;
+            this.cdr.detectChanges();
+          }
+        });
+      }
+    });
+  }
+
+  activateSupplier(supplier: Supplier, activate: boolean): void {
+    const action = activate ? 'activate' : 'deactivate';
+    const dialogData: ConfirmDialogData = {
+      title: `${activate ? 'Activate' : 'Deactivate'} Supplier`,
+      message: `Are you sure you want to ${action} "${supplier.name}"?`,
+      confirmText: activate ? 'Activate' : 'Deactivate',
+      cancelText: 'Cancel',
+      type: activate ? 'info' : 'warning'
+    };
+
+    this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: dialogData
+    }).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.isLoading = true;
+        this.supplierService.activateSupplier({ id: supplier.id, activate }).subscribe({
+          next: () => {
+            this.snackbar.success(`Supplier ${action}d successfully`);
+            this.loadSuppliers();
           },
           error: () => {
             this.isLoading = false;
@@ -187,12 +187,12 @@ export class CategoryComponent implements OnInit {
       this.sortDirection = undefined;
     }
     this.pagination.currentPage = 0;
-    this.loadCategories();
+    this.loadSuppliers();
   }
 
   onSearch(searchPhrase: string): void {
     this.searchPhrase = searchPhrase;
     this.pagination.currentPage = 0;
-    this.loadCategories();
+    this.loadSuppliers();
   }
 }

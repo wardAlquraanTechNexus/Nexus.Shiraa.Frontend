@@ -1,25 +1,25 @@
-<div class="category-container">
+<div class="supplier-container">
   <!-- Header -->
-  <div class="category-header">
-    <h2>Categories</h2>
+  <div class="supplier-header">
+    <h2>Suppliers</h2>
     <button mat-raised-button color="primary" (click)="openFormDialog()">
       <mat-icon>add</mat-icon>
-      Add Category
+      Add Supplier
     </button>
   </div>
 
   <!-- Data Table -->
   <app-data-table
-    [data]="categories"
+    [data]="suppliers"
     [columns]="tableColumns"
     [isLoading]="isLoading"
     [pagination]="pagination"
     [showActions]="true"
     [sortActive]="sortBy || ''"
     [sortDirection]="matSortDirection"
-    noDataMessage="No categories found"
-    (edit)="editCategory($event)"
-    (delete)="deleteCategory($event)"
+    noDataMessage="No suppliers found"
+    (edit)="editSupplier($event)"
+    (delete)="deleteSupplier($event)"
     (pageChange)="onPageChange($event)"
     (sortChange)="onSortChange($event)">
   </app-data-table>

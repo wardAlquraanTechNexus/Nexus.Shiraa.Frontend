@@ -1,0 +1,80 @@
+<div class="form-dialog">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>{{ data.country ? 'edit' : 'add_circle' }}</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2>{{ data.country ? 'Edit Country' : 'New Country' }}</h2>
+        <p class="subtitle">{{ data.country ? 'Update the country details below' : 'Fill in the details to create a new country' }}</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <mat-dialog-content>
+    <form [formGroup]="countryForm">
+      <!-- Basic Info Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-text-input
+            label="Number"
+            placeholder="e.g. CTR-001"
+            icon="tag"
+            [formGroup]="countryForm"
+            controlName="number">
+          </app-text-input>
+
+          <app-text-input
+            label="Name"
+            placeholder="Enter country name"
+            icon="public"
+            [formGroup]="countryForm"
+            controlName="name">
+          </app-text-input>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-textarea-input
+            label="Note"
+            placeholder="Add any additional notes..."
+            icon="notes"
+            [rows]="2"
+            [formGroup]="countryForm"
+            controlName="note">
+          </app-textarea-input>
+        </div>
+      </div>
+
+      <!-- Status Section -->
+      <div class="form-section">
+        <app-slide-toggle-input
+          label="Status"
+          activeText="Active"
+          inactiveText="Inactive"
+          [formGroup]="countryForm"
+          controlName="isActive">
+        </app-slide-toggle-input>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+    <button mat-stroked-button class="cancel-btn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button color="primary" class="submit-btn" (click)="onSubmit()" [disabled]="countryForm.invalid">
+      <mat-icon>{{ data.country ? 'save' : 'add' }}</mat-icon>
+      {{ data.country ? 'Update Country' : 'Create Country' }}
+    </button>
+  </div>
+</div>

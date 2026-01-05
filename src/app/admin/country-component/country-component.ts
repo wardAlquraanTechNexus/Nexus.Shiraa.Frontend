@@ -2,22 +2,22 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection as MatSortDirection } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryService } from '../services/category.service';
-import { Category, CreateCategoryRequest, UpdateCategoryRequest } from '../models/category.models';
+import { CountryService } from '../services/country.service';
+import { Country, CreateCountryRequest, UpdateCountryRequest } from '../models/country.models';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { TableColumn, PaginationInfo } from '../../shared/components/data-table/data-table.component';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../shared/components/confirm-dialog/confirm-dialog.component';
-import { CategoryFormDialogComponent, CategoryFormDialogData } from './category-form-dialog.component/category-form-dialog.component';
+import { CountryFormDialogComponent, CountryFormDialogData } from './country-form-dialog.component/country-form-dialog.component';
 import { SortDirection } from '../../core/models/pagination.models';
 
 @Component({
-  selector: 'app-category',
+  selector: 'app-country',
   standalone: false,
-  templateUrl: './category-component.html',
-  styleUrl: './category-component.scss',
+  templateUrl: './country-component.html',
+  styleUrl: './country-component.scss',
 })
-export class CategoryComponent implements OnInit {
-  categories: Category[] = [];
+export class CountryComponent implements OnInit {
+  countries: Country[] = [];
   isLoading = false;
   searchPhrase = '';
   sortBy?: string;
@@ -42,19 +42,19 @@ export class CategoryComponent implements OnInit {
   };
 
   constructor(
-    private categoryService: CategoryService,
+    private countryService: CountryService,
     private snackbar: SnackbarService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.loadCategories();
+    this.loadCountries();
   }
 
-  loadCategories(): void {
+  loadCountries(): void {
     this.isLoading = true;
-    this.categoryService.getPaged({
+    this.countryService.getPaged({
       PageNumber: this.pagination.currentPage,
       PageSize: this.pagination.pageSize,
       SearchPhrase: this.searchPhrase || undefined,
@@ -62,7 +62,7 @@ export class CategoryComponent implements OnInit {
       SortDirection: this.sortDirection
     }).subscribe({
       next: (response) => {
-        this.categories = response.categories;
+        this.countries = response.countries;
         this.pagination = {
           currentPage: response.currentPage,
           totalCount: response.totalCount,
@@ -84,36 +84,36 @@ export class CategoryComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.pagination.currentPage = event.pageIndex;
     this.pagination.pageSize = event.pageSize;
-    this.loadCategories();
+    this.loadCountries();
   }
 
-  openFormDialog(category?: Category): void {
-    const dialogData: CategoryFormDialogData = {
-      category: category
+  openFormDialog(country?: Country): void {
+    const dialogData: CountryFormDialogData = {
+      country: country
     };
 
-    this.dialog.open(CategoryFormDialogComponent, {
+    this.dialog.open(CountryFormDialogComponent, {
       width: '800px',
       maxWidth: '90vw',
       disableClose: true,
       data: dialogData
     }).afterClosed().subscribe(result => {
       if (result) {
-        if (category) {
-          this.updateCategory(result);
+        if (country) {
+          this.updateCountry(result);
         } else {
-          this.createCategory(result);
+          this.createCountry(result);
         }
       }
     });
   }
 
-  private createCategory(data: CreateCategoryRequest): void {
+  private createCountry(data: CreateCountryRequest): void {
     this.isLoading = true;
-    this.categoryService.create(data).subscribe({
+    this.countryService.create(data).subscribe({
       next: () => {
-        this.snackbar.success('Category created successfully');
-        this.loadCategories();
+        this.snackbar.success('Country created successfully');
+        this.loadCountries();
       },
       error: () => {
         this.isLoading = false;
@@ -122,12 +122,12 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  private updateCategory(data: UpdateCategoryRequest): void {
+  private updateCountry(data: UpdateCountryRequest): void {
     this.isLoading = true;
-    this.categoryService.update(data.id, data).subscribe({
+    this.countryService.update(data.id, data).subscribe({
       next: () => {
-        this.snackbar.success('Category updated successfully');
-        this.loadCategories();
+        this.snackbar.success('Country updated successfully');
+        this.loadCountries();
       },
       error: () => {
         this.isLoading = false;
@@ -136,14 +136,14 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  editCategory(category: Category): void {
-    this.openFormDialog(category);
+  editCountry(country: Country): void {
+    this.openFormDialog(country);
   }
 
-  deleteCategory(category: Category): void {
+  deleteCountry(country: Country): void {
     const dialogData: ConfirmDialogData = {
-      title: 'Delete Category',
-      message: `Are you sure you want to delete "${category.name}"? This action cannot be undone.`,
+      title: 'Delete Country',
+      message: `Are you sure you want to delete "${country.name}"? This action cannot be undone.`,
       confirmText: 'Delete',
       cancelText: 'Cancel',
       type: 'danger'
@@ -155,10 +155,10 @@ export class CategoryComponent implements OnInit {
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
         this.isLoading = true;
-        this.categoryService.delete(category.id).subscribe({
+        this.countryService.delete(country.id).subscribe({
           next: () => {
-            this.snackbar.success('Category deleted successfully');
-            this.loadCategories();
+            this.snackbar.success('Country deleted successfully');
+            this.loadCountries();
           },
           error: () => {
             this.isLoading = false;
@@ -187,12 +187,12 @@ export class CategoryComponent implements OnInit {
       this.sortDirection = undefined;
     }
     this.pagination.currentPage = 0;
-    this.loadCategories();
+    this.loadCountries();
   }
 
   onSearch(searchPhrase: string): void {
     this.searchPhrase = searchPhrase;
     this.pagination.currentPage = 0;
-    this.loadCategories();
+    this.loadCountries();
   }
 }

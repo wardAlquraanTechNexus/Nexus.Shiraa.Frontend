@@ -46,7 +46,7 @@ export class CategoryFormDialogComponent implements OnInit {
   }
 
   private loadParentCategories(): void {
-    this.parentCategoryOptions$ = this.categoryService.getCategories({ pageSize: 100 }).pipe(
+    this.parentCategoryOptions$ = this.categoryService.getPaged({ PageSize: 100 }).pipe(
       map(response => {
         const categories = response.categories.filter(c => !c.parentCategoryId);
         // Exclude current category when editing

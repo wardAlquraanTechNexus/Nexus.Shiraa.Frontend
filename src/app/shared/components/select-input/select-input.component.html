@@ -4,6 +4,7 @@
     [placeholder]="placeholder"
     [formControlName]="controlName"
     [required]="isRequired"
+    (selectionChange)="onSelectionChange($event.value)"
   >
     <mat-option *ngFor="let option of resolvedOptions" [value]="option.value">
       {{ option.label }}

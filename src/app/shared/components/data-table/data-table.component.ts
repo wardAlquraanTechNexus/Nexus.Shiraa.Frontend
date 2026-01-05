@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort, Sort, SortDirection } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 
 export interface TableColumn {
@@ -34,6 +34,8 @@ export class DataTableComponent<T> implements AfterViewInit {
   @Input() pagination?: PaginationInfo;
   @Input() showActions = true;
   @Input() pageSizeOptions: number[] = [5, 10, 25, 50];
+  @Input() sortActive = '';
+  @Input() sortDirection: SortDirection = '';
 
   @Output() edit = new EventEmitter<T>();
   @Output() delete = new EventEmitter<T>();

@@ -1,0 +1,37 @@
+<div class="city-container">
+  <!-- Header -->
+  <div class="city-header">
+    <h2>Cities</h2>
+    <button mat-raised-button color="primary" (click)="openFormDialog()" [disabled]="!selectedCountryId">
+      <mat-icon>add</mat-icon>
+      Add City
+    </button>
+  </div>
+
+  <!-- Country Filter -->
+  <div class="filter-section">
+    <app-select-input
+      label="Country"
+      placeholder="Select a country to view cities"
+      icon="public"
+      [options]="countryOptions$"
+      [formGroup]="filterForm"
+      controlName="countryId"
+      (selectionChange)="onCountryChange($event)">
+    </app-select-input>
+  </div>
+
+  <!-- Data Table -->
+  <app-data-table
+    [data]="cities"
+    [columns]="tableColumns"
+    [isLoading]="isLoading"
+    [pagination]="pagination"
+    [showActions]="true"
+    [noDataMessage]="selectedCountryId ? 'No cities found for this country' : 'Please select a country to view cities'"
+    (edit)="editCity($event)"
+    (delete)="deleteCity($event)"
+    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)">
+  </app-data-table>
+</div>

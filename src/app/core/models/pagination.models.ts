@@ -9,8 +9,15 @@ export interface PaginatedResponse<T> {
   hasNext: boolean;
 }
 
+export enum SortDirection {
+  Ascending = 1,
+  Descending = 2
+}
+
 export interface PaginationParams {
-  pageNumber?: number;
-  pageSize?: number;
-  searchTerm?: string;
+  SearchPhrase?: string;
+  PageNumber?: number;
+  PageSize?: number;
+  SortBy?: string;
+  SortDirection?: SortDirection;
 }

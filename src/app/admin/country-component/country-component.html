@@ -1,25 +1,25 @@
-<div class="category-container">
+<div class="country-container">
   <!-- Header -->
-  <div class="category-header">
-    <h2>Categories</h2>
+  <div class="country-header">
+    <h2>Countries</h2>
     <button mat-raised-button color="primary" (click)="openFormDialog()">
       <mat-icon>add</mat-icon>
-      Add Category
+      Add Country
     </button>
   </div>
 
   <!-- Data Table -->
   <app-data-table
-    [data]="categories"
+    [data]="countries"
     [columns]="tableColumns"
     [isLoading]="isLoading"
     [pagination]="pagination"
     [showActions]="true"
     [sortActive]="sortBy || ''"
     [sortDirection]="matSortDirection"
-    noDataMessage="No categories found"
-    (edit)="editCategory($event)"
-    (delete)="deleteCategory($event)"
+    noDataMessage="No countries found"
+    (edit)="editCountry($event)"
+    (delete)="deleteCountry($event)"
     (pageChange)="onPageChange($event)"
     (sortChange)="onSortChange($event)">
   </app-data-table>

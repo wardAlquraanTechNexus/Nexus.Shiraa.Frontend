@@ -1,31 +1,29 @@
-export interface Category {
+export interface Country {
+  id: string;
+  number?: string;
+  seqNo: number;
+  name?: string;
+  isActive: boolean;
+  note?: string;
+}
+
+export interface CreateCountryRequest {
+  number?: string;
+  name: string;
+  isActive: boolean;
+  note?: string;
+}
+
+export interface UpdateCountryRequest {
   id: string;
   number?: string;
   name: string;
   isActive: boolean;
   note?: string;
-  parentCategoryId?: string;
 }
 
-export interface CreateCategoryRequest {
-  number?: string;
-  name: string;
-  isActive: boolean;
-  note?: string;
-  parentCategoryId?: string;
-}
-
-export interface UpdateCategoryRequest {
-  id:string;
-  number?: string;
-  name: string;
-  isActive: boolean;
-  note?: string;
-  parentCategoryId?: string;
-}
-
-export interface CategoriesListResponse {
-  categories: Category[];
+export interface CountriesListResponse {
+  countries: Country[];
   totalPages: number;
   totalCount: number;
   itemsFrom: number;
@@ -34,5 +32,3 @@ export interface CategoriesListResponse {
   hasPrivious: boolean;
   hasNext: boolean;
 }
-
-

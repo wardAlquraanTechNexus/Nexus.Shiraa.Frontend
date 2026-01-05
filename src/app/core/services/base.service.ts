@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { PaginatedResponse, PaginationParams } from '../models/pagination.models';
 
-export abstract class BaseService<T, TCreate = T, TUpdate = T> {
+export abstract class BaseService<T, TCreate = T, TUpdate = T, TList = PaginatedResponse<T>> {
   protected readonly baseUrl: string;
 
   constructor(
@@ -23,6 +23,11 @@ export abstract class BaseService<T, TCreate = T, TUpdate = T> {
       });
     }
     return httpParams;
+  }
+
+  getPaged(params?: PaginationParams): Observable<TList> {
+    const httpParams = this.toHttpParams(params);
+    return this.http.get<TList>(this.baseUrl, { params: httpParams });
   }
 
   get(pagination?: PaginationParams): Observable<PaginatedResponse<T>> {

@@ -1,0 +1,115 @@
+<div class="form-dialog">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>{{ data.address ? 'edit' : 'add_circle' }}</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2>{{ data.address ? 'Edit Address' : 'New Address' }}</h2>
+        <p class="subtitle">{{ data.address ? 'Update the address details below' : 'Fill in the details to create a new address' }}</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="onCancel()" [disabled]="isSubmitting">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <mat-dialog-content>
+    <form [formGroup]="addressForm">
+      <!-- Basic Info Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-text-input
+            label="Number"
+            placeholder="e.g. ADDR-001"
+            icon="tag"
+            [formGroup]="addressForm"
+            controlName="number">
+          </app-text-input>
+
+          <app-text-input
+            label="Name"
+            placeholder="Enter address name"
+            icon="label"
+            [formGroup]="addressForm"
+            controlName="name">
+          </app-text-input>
+        </div>
+      </div>
+
+      <!-- Address Details Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-textarea-input
+            label="Address Line"
+            placeholder="Enter full address..."
+            icon="location_on"
+            [rows]="2"
+            [formGroup]="addressForm"
+            controlName="addressLine">
+          </app-textarea-input>
+        </div>
+
+        <div class="form-row">
+          <app-select-input
+            label="Country"
+            placeholder="Select country"
+            icon="public"
+            [options]="countryOptions$"
+            [formGroup]="addressForm"
+            controlName="countryId"
+            (selectionChange)="onCountryChange($event)">
+          </app-select-input>
+
+          <app-select-input
+            label="City"
+            placeholder="Select city"
+            icon="location_city"
+            [options]="cityOptions$"
+            [formGroup]="addressForm"
+            controlName="cityId">
+          </app-select-input>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-textarea-input
+            label="Note"
+            placeholder="Add any additional notes..."
+            icon="notes"
+            [rows]="2"
+            [formGroup]="addressForm"
+            controlName="note">
+          </app-textarea-input>
+        </div>
+      </div>
+
+      <!-- Status Section -->
+      <div class="form-section">
+        <app-slide-toggle-input
+          label="Status"
+          activeText="Active"
+          inactiveText="Inactive"
+          [formGroup]="addressForm"
+          controlName="isActive">
+        </app-slide-toggle-input>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+    <button mat-stroked-button class="cancel-btn" (click)="onCancel()" [disabled]="isSubmitting">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button color="primary" class="submit-btn" (click)="onSubmit()" [disabled]="addressForm.invalid || isSubmitting">
+      <mat-icon>{{ isSubmitting ? 'hourglass_empty' : (data.address ? 'save' : 'add') }}</mat-icon>
+      {{ isSubmitting ? 'Saving...' : (data.address ? 'Update Address' : 'Create Address') }}
+    </button>
+  </div>
+</div>

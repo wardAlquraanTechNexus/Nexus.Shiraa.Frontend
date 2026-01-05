@@ -1,14 +1,14 @@
 <!-- Loading Spinner -->
-<div class="loading-container" *ngIf="isLoading">
+<div class="loading-overlay" *ngIf="isLoading">
   <mat-spinner diameter="40"></mat-spinner>
 </div>
 
 <!-- Table -->
-<mat-card *ngIf="!isLoading">
-  <table mat-table [dataSource]="data" matSort (matSortChange)="onSortChange($event)" class="data-table">
+<mat-card>
+  <table mat-table [dataSource]="data" matSort [matSortActive]="sortActive" [matSortDirection]="sortDirection" (matSortChange)="onSortChange($event)" class="data-table">
     <!-- Dynamic Columns -->
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
-      <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.sortable ? column.key : ''">
+      <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key" [disabled]="!column.sortable">
         {{ column.header }}
       </th>
       <td mat-cell *matCellDef="let item">

@@ -108,6 +108,30 @@
                   <span *ngIf="!sidebarCollapsed">{{ 'sidebar.categories' | translate }}</span>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/addresses" routerLinkActive="active" [title]="'sidebar.addresses' | translate">
+                  <i class="bi bi-geo-alt"></i>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.addresses' | translate }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/countries" routerLinkActive="active" [title]="'sidebar.countries' | translate">
+                  <i class="bi bi-globe"></i>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.countries' | translate }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/cities" routerLinkActive="active" [title]="'sidebar.cities' | translate">
+                  <i class="bi bi-building"></i>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.cities' | translate }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/suppliers" routerLinkActive="active" [title]="'sidebar.suppliers' | translate">
+                  <i class="bi bi-truck"></i>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.suppliers' | translate }}</span>
+                </a>
+              </li>
             </ul>
           </div>
 

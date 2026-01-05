@@ -1,0 +1,114 @@
+<div class="form-dialog">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>{{ data.supplier ? 'edit' : 'add_circle' }}</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2>{{ data.supplier ? 'Edit Supplier' : 'New Supplier' }}</h2>
+        <p class="subtitle">{{ data.supplier ? 'Update the supplier details below' : 'Fill in the details to create a new supplier' }}</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="onCancel()" [disabled]="isSubmitting">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <mat-dialog-content>
+    <form [formGroup]="supplierForm">
+      <!-- Basic Info Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-text-input
+            label="Number"
+            placeholder="e.g. SUP-001"
+            icon="tag"
+            [formGroup]="supplierForm"
+            controlName="number">
+          </app-text-input>
+
+          <app-text-input
+            label="Name"
+            placeholder="Enter supplier name"
+            icon="business"
+            [formGroup]="supplierForm"
+            controlName="name">
+          </app-text-input>
+        </div>
+      </div>
+
+      <!-- Registration Info Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-text-input
+            label="Tax Registration Number"
+            placeholder="Enter tax registration number"
+            icon="receipt"
+            [formGroup]="supplierForm"
+            controlName="taxRegistrationNum">
+          </app-text-input>
+
+          <app-text-input
+            label="Commercial License Number"
+            placeholder="Enter commercial license number"
+            icon="badge"
+            [formGroup]="supplierForm"
+            controlName="commercialLicenseNum">
+          </app-text-input>
+        </div>
+      </div>
+
+      <!-- Website Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-text-input
+            label="Website"
+            placeholder="e.g. https://example.com"
+            icon="language"
+            [formGroup]="supplierForm"
+            controlName="website">
+          </app-text-input>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="form-section">
+        <div class="form-row">
+          <app-textarea-input
+            label="Note"
+            placeholder="Add any additional notes..."
+            icon="notes"
+            [rows]="2"
+            [formGroup]="supplierForm"
+            controlName="note">
+          </app-textarea-input>
+        </div>
+      </div>
+
+      <!-- Status Section -->
+      <div class="form-section">
+        <app-slide-toggle-input
+          label="Status"
+          activeText="Active"
+          inactiveText="Inactive"
+          [formGroup]="supplierForm"
+          controlName="isActive">
+        </app-slide-toggle-input>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+    <button mat-stroked-button class="cancel-btn" (click)="onCancel()" [disabled]="isSubmitting">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button color="primary" class="submit-btn" (click)="onSubmit()" [disabled]="supplierForm.invalid || isSubmitting">
+      <mat-icon>{{ isSubmitting ? 'hourglass_empty' : (data.supplier ? 'save' : 'add') }}</mat-icon>
+      {{ isSubmitting ? 'Saving...' : (data.supplier ? 'Update Supplier' : 'Create Supplier') }}
+    </button>
+  </div>
+</div>
