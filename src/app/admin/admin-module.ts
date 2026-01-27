@@ -11,6 +11,7 @@ import { CityComponent } from './city-component/city-component';
 import { SupplierComponent } from './supplier-component/supplier-component';
 
 import { SharedModule } from '../shared/shared-module';
+import { BaseDialogComponent } from '../shared/components/base-dialog/base-dialog.component';
 import { CategoryFormDialogComponent } from './category-component/category-form-dialog.component/category-form-dialog.component';
 import { AddressFormDialogComponent } from './address-component/address-form-dialog.component/address-form-dialog.component';
 import { CountryFormDialogComponent } from './country-component/country-form-dialog.component/country-form-dialog.component';
@@ -35,7 +36,8 @@ import { SupplierFormDialogComponent } from './supplier-component/supplier-form-
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
+    BaseDialogComponent
   ]
 })
 export class AdminModule { }

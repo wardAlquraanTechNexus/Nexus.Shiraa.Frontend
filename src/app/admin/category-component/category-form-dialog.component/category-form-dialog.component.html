@@ -1,90 +1,67 @@
-<div class="form-dialog">
-  <!-- Header -->
-  <div class="dialog-header">
-    <div class="header-content">
-      <div class="header-icon">
-        <mat-icon>{{ data.category ? 'edit' : 'add_circle' }}</mat-icon>
-      </div>
-      <div class="header-text">
-        <h2>{{ data.category ? 'Edit Category' : 'New Category' }}</h2>
-        <p class="subtitle">{{ data.category ? 'Update the category details below' : 'Fill in the details to create a new category' }}</p>
+<app-base-dialog
+  [title]="data.category ? 'Edit Category' : 'New Category'"
+  [subtitle]="data.category ? 'Update the category details below' : 'Fill in the details to create a new category'"
+  [icon]="data.category ? 'edit' : 'add_circle'"
+  [saveText]="data.category ? 'Update Category' : 'Create Category'"
+  [saveIcon]="data.category ? 'save' : 'add'"
+  [disableSave]="categoryForm.invalid"
+  (save)="onSubmit()">
+
+  <form [formGroup]="categoryForm">
+    <!-- Basic Info Section -->
+    <div class="form-section">
+      <div class="form-row">
+        <app-text-input
+          label="Number"
+          placeholder="e.g. CAT-001"
+          icon="tag"
+          [formGroup]="categoryForm"
+          controlName="number">
+        </app-text-input>
+
+        <app-text-input
+          label="Name"
+          placeholder="Enter category name"
+          icon="label"
+          [formGroup]="categoryForm"
+          controlName="name">
+        </app-text-input>
       </div>
     </div>
-    <button mat-icon-button class="close-btn" (click)="onCancel()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
 
-  <!-- Content -->
-  <mat-dialog-content>
-    <form [formGroup]="categoryForm">
-      <!-- Basic Info Section -->
-      <div class="form-section">
-       
-        <div class="form-row">
-          <app-text-input
-            label="Number"
-            placeholder="e.g. CAT-001"
-            icon="tag"
-            [formGroup]="categoryForm"
-            controlName="number">
-          </app-text-input>
-
-          <app-text-input
-            label="Name"
-            placeholder="Enter category name"
-            icon="label"
-            [formGroup]="categoryForm"
-            controlName="name">
-          </app-text-input>
-        </div>
-      </div>
-
-      <!-- Hierarchy Section -->
-      <div class="form-section">
-        <div class="form-row">
-          <app-select-input
-            label="Parent Category"
-            placeholder="Select parent category"
-            icon="folder"
-            [options]="parentCategoryOptions$"
-            [formGroup]="categoryForm"
-            controlName="parentCategoryId">
-          </app-select-input>
-
-          <app-textarea-input
-            label="Note"
-            placeholder="Add any additional notes..."
-            icon="notes"
-            [rows]="1"
-            [formGroup]="categoryForm"
-            controlName="note">
-          </app-textarea-input>
-        </div>
-      </div>
-
-      <!-- Status Section -->
-      <div class="form-section">
-        <app-slide-toggle-input
-          label="Status"
-          activeText="Active"
-          inactiveText="Inactive"
+    <!-- Hierarchy Section -->
+    <div class="form-section">
+      <div class="form-row">
+        <app-select-input
+          label="Parent Category"
+          placeholder="Select parent category"
+          icon="folder"
+          [options]="parentCategoryOptions$"
           [formGroup]="categoryForm"
-          controlName="isActive">
-        </app-slide-toggle-input>
-      </div>
-    </form>
-  </mat-dialog-content>
+          controlName="parentCategoryId">
+        </app-select-input>
 
-  <!-- Actions -->
-  <div class="dialog-actions">
-    <button mat-stroked-button class="cancel-btn" (click)="onCancel()">
-      <mat-icon>close</mat-icon>
-      Cancel
-    </button>
-    <button mat-flat-button color="primary" class="submit-btn" (click)="onSubmit()" [disabled]="categoryForm.invalid">
-      <mat-icon>{{ data.category ? 'save' : 'add' }}</mat-icon>
-      {{ data.category ? 'Update Category' : 'Create Category' }}
-    </button>
-  </div>
-</div>
+        <app-textarea-input
+          label="Note"
+          placeholder="Add any additional notes..."
+          icon="notes"
+          [rows]="1"
+          [formGroup]="categoryForm"
+          controlName="note">
+        </app-textarea-input>
+      </div>
+    </div>
+
+    <!-- Status Section -->
+    <div class="form-section">
+      <app-slide-toggle-input
+        label="Status"
+        activeText="Active"
+        inactiveText="Inactive"
+        [formGroup]="categoryForm"
+        controlName="isActive">
+      </app-slide-toggle-input>
+    </div>
+  </form>
+
+</app-base-dialog>

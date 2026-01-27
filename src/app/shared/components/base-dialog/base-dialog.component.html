@@ -1,0 +1,32 @@
+<div class="base-dialog">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>{{ icon }}</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2>{{ title }}</h2>
+        <p class="subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="onCancel()" [disabled]="isSubmitting">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <mat-dialog-content>
+    <ng-content></ng-content>
+  </mat-dialog-content>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+    <button mat-stroked-button class="cancel-btn" (click)="onCancel()" [disabled]="isSubmitting">
+      <mat-icon>{{ cancelIcon }}</mat-icon> {{ cancelText }}
+    </button>
+    <button mat-flat-button color="primary" class="submit-btn" (click)="onSave()" [disabled]="disableSave || isSubmitting">
+      <mat-icon>{{ isSubmitting ? 'hourglass_empty' : saveIcon }}</mat-icon> {{ isSubmitting ? 'Saving...' : saveText }}
+    </button>
+  </div>
+</div>

@@ -46,10 +46,6 @@ export class SupplierFormDialogComponent implements OnInit {
     });
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
   onSubmit(): void {
     if (this.supplierForm.valid) {
       const formValue = this.supplierForm.value;

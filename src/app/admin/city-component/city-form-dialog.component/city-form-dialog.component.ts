@@ -39,10 +39,6 @@ export class CityFormDialogComponent implements OnInit {
     });
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
   onSubmit(): void {
     if (this.cityForm.valid) {
       const formValue = this.cityForm.value;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map, of } from 'rxjs';
@@ -6,6 +6,7 @@ import { Address } from '../../models/address.models';
 import { AddressService } from '../../services/address.service';
 import { CountryService } from '../../services/country.service';
 import { CityService } from '../../services/city.service';
+import { SupplierService } from '../../services/supplier.service';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
 import { SelectOption } from '../../../shared/components/select-input/select-input.component';
 
@@ -23,6 +24,7 @@ export class AddressFormDialogComponent implements OnInit {
   addressForm!: FormGroup;
   countryOptions$!: Observable<SelectOption[]>;
   cityOptions$: Observable<SelectOption[]> = of([]);
+  supplierOptions$!: Observable<SelectOption[]>;
   isSubmitting = false;
 
   constructor(
@@ -30,14 +32,17 @@ export class AddressFormDialogComponent implements OnInit {
     private addressService: AddressService,
     private countryService: CountryService,
     private cityService: CityService,
+    private supplierService: SupplierService,
     private snackbar: SnackbarService,
     public dialogRef: MatDialogRef<AddressFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AddressFormDialogData
+    @Inject(MAT_DIALOG_DATA) public data: AddressFormDialogData,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.loadCountries();
+    this.loadSuppliers();
 
     if (this.data.address) {
       this.addressForm.patchValue(this.data.address);
@@ -73,6 +78,18 @@ export class AddressFormDialogComponent implements OnInit {
     );
   }
 
+  private loadSuppliers(): void {
+    this.supplierOptions$ = this.supplierService.getPaged({ PageSize: 100 }).pipe(
+      map(response => response.suppliers
+        .filter(s => s.isActive)
+        .map(supplier => ({
+          value: supplier.id,
+          label: supplier.name || ''
+        }))
+      )
+    );
+  }
+
   private loadCities(countryId: string): void {
     this.cityOptions$ = this.cityService.getCitiesForCountry(countryId).pipe(
       map(cities => cities
@@ -96,10 +113,6 @@ export class AddressFormDialogComponent implements OnInit {
     }
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
   onSubmit(): void {
     if (this.addressForm.valid) {
       const formValue = this.addressForm.value;
@@ -111,9 +124,11 @@ export class AddressFormDialogComponent implements OnInit {
           next: () => {
             this.snackbar.success('Address updated successfully');
             this.dialogRef.close('updated');
+            this.cdr.markForCheck();
           },
           error: () => {
             this.isSubmitting = false;
+            this.cdr.markForCheck();
           }
         });
       } else {
@@ -121,9 +136,11 @@ export class AddressFormDialogComponent implements OnInit {
           next: () => {
             this.snackbar.success('Address created successfully');
             this.dialogRef.close('created');
+            this.cdr.markForCheck();
           },
           error: () => {
             this.isSubmitting = false;
+            this.cdr.markForCheck();
           }
         });
       }

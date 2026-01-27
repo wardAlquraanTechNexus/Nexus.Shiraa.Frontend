@@ -65,10 +65,6 @@ export class CategoryFormDialogComponent implements OnInit {
     );
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
   onSubmit(): void {
     if (this.categoryForm.valid) {
       const formValue = this.categoryForm.value;

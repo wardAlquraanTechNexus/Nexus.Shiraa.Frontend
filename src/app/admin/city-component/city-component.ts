@@ -130,7 +130,7 @@ export class CityComponent implements OnInit {
     };
 
     this.dialog.open(CityFormDialogComponent, {
-      width: '600px',
+      width: '800px',
       maxWidth: '90vw',
       disableClose: true,
       data: dialogData

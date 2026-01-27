@@ -38,10 +38,6 @@ export class CountryFormDialogComponent implements OnInit {
     });
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
   onSubmit(): void {
     if (this.countryForm.valid) {
       const formValue = this.countryForm.value;

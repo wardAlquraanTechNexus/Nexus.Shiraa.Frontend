@@ -38,11 +38,28 @@
     .mat-mdc-form-field-error {
       font-size: 0.8rem;
     }
+
+    // Fix label overlap with prefix icon
+    .mat-mdc-form-field-has-icon-prefix .mat-mdc-floating-label {
+      left: 32px !important;
+    }
+
+    .mdc-text-field--outlined.mdc-text-field--with-leading-icon .mdc-floating-label {
+      left: 36px !important;
+    }
+
+    .mdc-text-field--outlined.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
+      left: 4px !important;
+    }
   }
 
-  mat-icon[matPrefix] {
-    margin-right: 12px;
+  mat-icon[matPrefix],
+  mat-icon[matIconPrefix] {
+    margin-right: 8px;
     color: #6c757d;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
   }
 
   button[matSuffix] {

@@ -1,5 +1,6 @@
 <mat-form-field [formGroup]="formGroup" appearance="outline" class="full-width">
   <mat-label>{{ label }}</mat-label>
+  <mat-icon *ngIf="icon" matIconPrefix>{{ icon }}</mat-icon>
   <mat-select
     [placeholder]="placeholder"
     [formControlName]="controlName"
@@ -10,7 +11,6 @@
       {{ option.label }}
     </mat-option>
   </mat-select>
-  <mat-icon *ngIf="icon" matPrefix>{{ icon }}</mat-icon>
   <mat-spinner *ngIf="isLoading" matSuffix diameter="20"></mat-spinner>
   <mat-error *ngIf="control?.hasError('required')">This field is required</mat-error>
 </mat-form-field>
