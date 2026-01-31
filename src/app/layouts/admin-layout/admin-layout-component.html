@@ -139,6 +139,12 @@
             <h6 class="nav-section-title" *ngIf="!sidebarCollapsed">{{ 'sidebar.supplier' | translate }}</h6>
             <ul class="nav flex-column">
               <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/supplier/registration" routerLinkActive="active" [title]="'sidebar.registration' | translate">
+                  <i class="bi bi-clipboard-plus"></i>
+                  <span *ngIf="!sidebarCollapsed">{{ 'sidebar.registration' | translate }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" routerLink="/admin/profile" routerLinkActive="active" [title]="'sidebar.profile' | translate">
                   <i class="bi bi-person-badge"></i>
                   <span *ngIf="!sidebarCollapsed">{{ 'sidebar.profile' | translate }}</span>

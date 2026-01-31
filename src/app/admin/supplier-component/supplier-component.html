@@ -15,11 +15,13 @@
     [isLoading]="isLoading"
     [pagination]="pagination"
     [showActions]="true"
+    [showSubmit]="true"
     [sortActive]="sortBy || ''"
     [sortDirection]="matSortDirection"
     noDataMessage="No suppliers found"
     (edit)="editSupplier($event)"
     (delete)="deleteSupplier($event)"
+    (submit)="submitSupplier($event)"
     (pageChange)="onPageChange($event)"
     (sortChange)="onSortChange($event)">
   </app-data-table>

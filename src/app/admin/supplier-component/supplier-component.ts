@@ -169,6 +169,35 @@ export class SupplierComponent implements OnInit {
     });
   }
 
+  submitSupplier(supplier: Supplier): void {
+    const dialogData: ConfirmDialogData = {
+      title: 'Submit Supplier',
+      message: `Are you sure you want to submit "${supplier.name}" for approval? This will start the approval workflow.`,
+      confirmText: 'Submit',
+      cancelText: 'Cancel',
+      type: 'info'
+    };
+
+    this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: dialogData
+    }).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.isLoading = true;
+        this.supplierService.submitSupplier({ id: supplier.id }).subscribe({
+          next: () => {
+            this.snackbar.success('Supplier submitted for approval successfully');
+            this.loadSuppliers();
+          },
+          error: () => {
+            this.isLoading = false;
+            this.cdr.detectChanges();
+          }
+        });
+      }
+    });
+  }
+
   onSortChange(sort: Sort): void {
     const newSortBy = sort.active || undefined;
 

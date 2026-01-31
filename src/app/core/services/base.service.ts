@@ -39,8 +39,8 @@ export abstract class BaseService<T, TCreate = T, TUpdate = T, TList = Paginated
     return this.http.get<T>(`${this.baseUrl}/${id}`);
   }
 
-  create(request: TCreate): Observable<T> {
-    return this.http.post<T>(this.baseUrl, request);
+  create(request: TCreate): Observable<string> {
+    return this.http.post(this.baseUrl, request, { responseType: 'text' });
   }
 
   update(id: string, request: TUpdate): Observable<T> {

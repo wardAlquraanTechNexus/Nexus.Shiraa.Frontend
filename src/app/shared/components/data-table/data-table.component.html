@@ -41,6 +41,9 @@
         <button mat-icon-button color="warn" (click)="onDelete(item)" title="Delete">
           <mat-icon>delete</mat-icon>
         </button>
+        <button mat-icon-button color="accent" (click)="onSubmit(item)" title="Submit" *ngIf="showSubmit">
+          <mat-icon>send</mat-icon>
+        </button>
       </td>
     </ng-container>
 

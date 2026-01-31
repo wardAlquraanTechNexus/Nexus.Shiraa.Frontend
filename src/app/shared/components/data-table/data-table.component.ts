@@ -33,12 +33,14 @@ export class DataTableComponent<T> implements AfterViewInit {
   @Input() noDataMessage = 'No data found';
   @Input() pagination?: PaginationInfo;
   @Input() showActions = true;
+  @Input() showSubmit = false;
   @Input() pageSizeOptions: number[] = [5, 10, 25, 50];
   @Input() sortActive = '';
   @Input() sortDirection: SortDirection = '';
 
   @Output() edit = new EventEmitter<T>();
   @Output() delete = new EventEmitter<T>();
+  @Output() submit = new EventEmitter<T>();
   @Output() pageChange = new EventEmitter<PageEvent>();
   @Output() sortChange = new EventEmitter<Sort>();
 
@@ -66,6 +68,10 @@ export class DataTableComponent<T> implements AfterViewInit {
 
   onDelete(item: T): void {
     this.delete.emit(item);
+  }
+
+  onSubmit(item: T): void {
+    this.submit.emit(item);
   }
 
   onPageChange(event: PageEvent): void {

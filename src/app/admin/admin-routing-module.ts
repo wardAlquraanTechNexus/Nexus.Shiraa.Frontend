@@ -7,6 +7,7 @@ import { AddressComponent } from './address-component/address-component';
 import { CountryComponent } from './country-component/country-component';
 import { CityComponent } from './city-component/city-component';
 import { SupplierComponent } from './supplier-component/supplier-component';
+import { SupplierRegistrationComponent } from './supplier-registration-component/supplier-registration-component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'suppliers',
     component: SupplierComponent
+  },
+  {
+    path: 'supplier/registration',
+    component: SupplierRegistrationComponent
   }
 ];
 

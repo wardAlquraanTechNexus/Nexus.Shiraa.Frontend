@@ -20,6 +20,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // Input Components
 import { EmailInputComponent } from './components/email-input/email-input.component';
@@ -74,6 +76,8 @@ import { TranslatePipe } from './pipes/translate.pipe';
     MatSortModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatListModule,
+    MatExpansionModule,
     TranslatePipe,
   ],
   exports: [
@@ -99,6 +103,8 @@ import { TranslatePipe } from './pipes/translate.pipe';
     MatSortModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatListModule,
+    MatExpansionModule,
     // Components
     EmailInputComponent,
     PhoneInputComponent,

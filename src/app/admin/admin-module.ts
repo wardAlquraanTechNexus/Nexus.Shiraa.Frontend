@@ -9,6 +9,7 @@ import { AddressComponent } from './address-component/address-component';
 import { CountryComponent } from './country-component/country-component';
 import { CityComponent } from './city-component/city-component';
 import { SupplierComponent } from './supplier-component/supplier-component';
+import { SupplierRegistrationComponent } from './supplier-registration-component/supplier-registration-component';
 
 import { SharedModule } from '../shared/shared-module';
 import { BaseDialogComponent } from '../shared/components/base-dialog/base-dialog.component';
@@ -31,7 +32,8 @@ import { SupplierFormDialogComponent } from './supplier-component/supplier-form-
     CityComponent,
     CityFormDialogComponent,
     SupplierComponent,
-    SupplierFormDialogComponent
+    SupplierFormDialogComponent,
+    SupplierRegistrationComponent
   ],
   imports: [
     CommonModule,

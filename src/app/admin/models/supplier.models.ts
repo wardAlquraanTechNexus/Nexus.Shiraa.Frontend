@@ -9,11 +9,67 @@ export interface Supplier {
   commercialLicenseNum?: string;
   website?: string;
   ownerId?: string;
+  wfStatus?: string;
 }
 
 export interface SupplierDetails extends Supplier {
-  // Extended details can be added here
+  addresses?: SupplierAddress[];
+  contacts?: SupplierContact[];
+  categories?: SupplierCategory[];
+  supplierFiles?: SupplierFile[];
 }
+
+export interface SupplierAddress {
+  id?: string;
+  name: string;
+  number?: string;
+  addressLine?: string;
+  countryId: string;
+  countryName?: string;
+  cityId: string;
+  cityName?: string;
+  supplierId?: string;
+}
+
+export interface SupplierContact {
+  id?: string;
+  name: string;
+  designation: string;
+  email: string;
+  phone: string;
+  mobile: string;
+  isPrimary: boolean;
+  supplierId?: string;
+}
+
+export interface SupplierCategory {
+  id?: string;
+  categoryId: string;
+  categoryName?: string;
+  supplierId?: string;
+}
+
+export interface SupplierFile {
+  id?: string;
+  name: string;
+  fileName?: string;
+  filePath?: string;
+  fileDescription?: string;
+  fileExtension?: string;
+  fileContentType?: string;
+  fileSizeInBytes?: number;
+  fileData?: string; // base64
+  supplierId?: string;
+}
+
+export const SupplierDocumentTypes = {
+  TradeLicense: 'Trade License',
+  PowerOfAttorney: 'Power of Attorney',
+  CompanyProfile: 'Company Profile',
+  VATCertificate: 'VAT Certificate',
+  ICVCertificate: 'ICV Certificate',
+  Other: 'Other'
+} as const;
 
 export interface SupplierLov {
   id: string;
@@ -40,6 +96,10 @@ export interface CreateSupplierRequest {
   commercialLicenseNum?: string;
   website?: string;
   ownerId?: string;
+  addresses?: SupplierAddress[];
+  contacts?: SupplierContact[];
+  supplierCategories?: { categoryId: string }[];
+  supplierFiles?: SupplierFile[];
 }
 
 export interface UpdateSupplierRequest {
